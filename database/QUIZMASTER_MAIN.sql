@@ -1,8 +1,8 @@
 -- PROYECTO FINAL - BASES DE DATOS II - 2024-1
----- JUAN JOS… HERRERA OROZCO
----- SAMUEL ECHEVERRI BLAND”N
+---- JUAN JOS√â HERRERA OROZCO
+---- SAMUEL ECHEVERRI BLAND√ìN
 
--- CREACI”N DE TABLESPACES --------------------------------------------------
+-- CREACI√ìN DE TABLESPACES --------------------------------------------------
 
 CREATE TABLESPACE TS_ESTUDIANTES
 DATAFILE 'C:\TS\PROYECTO\TS_ESTUDIANTES.DBF'
@@ -69,7 +69,7 @@ DATAFILE 'C:\TS\PROYECTO\TS_OPCIONES_RESPUESTA.DBF'
 SIZE 10M AUTOEXTEND ON MAXSIZE UNLIMITED;
 
 
--- CREACI”N DEL ESQUEMA -------------------------------------------------------
+-- CREACI√ìN DEL ESQUEMA -------------------------------------------------------
 
 CREATE TABLE ESTUDIANTES 
     ( 
@@ -367,7 +367,7 @@ ALTER TABLE OPCIONES_RESPUESTA
 ;
 
 
--- CREACI”N DE ÕNDICES -------------------------------------------------------
+-- CREACI√ìN DE √çNDICES -------------------------------------------------------
 
 CREATE INDEX IDX_ESTUDIANTES_EMAIL ON ESTUDIANTES (EMAIL) 
 TABLESPACE TS_ESTUDIANTES;
@@ -385,7 +385,7 @@ CREATE INDEX IDX_MATERIAS_NOMBRE ON MATERIAS (NOMBRE)
 TABLESPACE TS_MATERIAS;
 
 
--- CREACI”N DE ROLES ---------------------------------------------------------
+-- CREACI√ìN DE ROLES ---------------------------------------------------------
 
 CREATE ROLE ADMINISTRADOR;
 GRANT ALL PRIVILEGES TO ADMINISTRADOR;
@@ -454,7 +454,7 @@ BEGIN
     
 EXCEPTION
     WHEN email_exists THEN
-        RAISE_APPLICATION_ERROR(-20001, 'El email ya est· registrado en el sistema.');
+        RAISE_APPLICATION_ERROR(-20001, 'El email ya est√° registrado en el sistema.');
     WHEN OTHERS THEN
         IF CURSOR_ESTUDIANTES%ISOPEN THEN
             CLOSE CURSOR_ESTUDIANTES;
@@ -482,7 +482,7 @@ BEGIN
   WHERE ID_ESTUDIANTE = P_ID_ESTUDIANTE;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el estudiante por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el estudiante por ID.');
 END OBTENER_ESTUDIANTE_POR_ID;
 
 
@@ -497,7 +497,7 @@ BEGIN
   WHERE EMAIL = P_EMAIL_ESTUDIANTE;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el estudiante por email.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el estudiante por email.');
 END OBTENER_ESTUDIANTE_POR_EMAIL;
 
 
@@ -513,17 +513,17 @@ CREATE OR REPLACE PROCEDURE ACTUALIZAR_ESTUDIANTE (
     V_CURSOR_EMAIL SYS_REFCURSOR;
     V_EXISTING_EMAIL ESTUDIANTES%ROWTYPE;
 BEGIN
-    -- Verificar si el nuevo email ya est· registrado por otro estudiante
+    -- Verificar si el nuevo email ya est√° registrado por otro estudiante
     OBTENER_ESTUDIANTE_POR_EMAIL(P_EMAIL, V_CURSOR_EMAIL);
     FETCH V_CURSOR_EMAIL INTO V_EXISTING_EMAIL;
     CLOSE V_CURSOR_EMAIL;
 
-    -- Si se encontrÛ otro estudiante con el mismo email, lanzar una excepciÛn
+    -- Si se encontr√≥ otro estudiante con el mismo email, lanzar una excepci√≥n
     IF V_EXISTING_EMAIL.ID_ESTUDIANTE IS NOT NULL AND V_EXISTING_EMAIL.ID_ESTUDIANTE != P_ID THEN
-        RAISE_APPLICATION_ERROR(-20004, 'El email especificado ya est· registrado por otro estudiante.');
+        RAISE_APPLICATION_ERROR(-20004, 'El email especificado ya est√° registrado por otro estudiante.');
     END IF;
 
-    -- Actualizar la informaciÛn del estudiante si pasa las validaciones
+    -- Actualizar la informaci√≥n del estudiante si pasa las validaciones
     UPDATE ESTUDIANTES
     SET
         NOMBRE = P_NOMBRE,
@@ -544,12 +544,12 @@ BEGIN
     WHERE ID_ESTUDIANTE = P_ID_ESTUDIANTE;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n estudiante con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n estudiante con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar el estudiante.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar el estudiante.');
 END ELIMINAR_ESTUDIANTE;
 
 
@@ -585,7 +585,7 @@ BEGIN
     
 EXCEPTION
     WHEN email_exists THEN
-        RAISE_APPLICATION_ERROR(-20001, 'El email ya est· registrado en el sistema.');
+        RAISE_APPLICATION_ERROR(-20001, 'El email ya est√° registrado en el sistema.');
     WHEN OTHERS THEN
         IF CURSOR_PROFESORES%ISOPEN THEN
             CLOSE CURSOR_PROFESORES;
@@ -617,7 +617,7 @@ BEGIN
   WHERE P.ID_PROFESOR = P_ID_PROFESOR;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el profesor por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el profesor por ID.');
 END OBTENER_PROFESOR_POR_ID;
 
 
@@ -634,7 +634,7 @@ BEGIN
   WHERE P.EMAIL = P_EMAIL;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el profesor por email.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el profesor por email.');
 END OBTENER_PROFESOR_POR_EMAIL;
 
 
@@ -650,17 +650,17 @@ CREATE OR REPLACE PROCEDURE ACTUALIZAR_PROFESOR (
     V_CURSOR_EMAIL SYS_REFCURSOR;
     V_EXISTING_EMAIL PROFESORES%ROWTYPE;
 BEGIN
-    -- Verificar si el nuevo email ya est· registrado por otro profesor
+    -- Verificar si el nuevo email ya est√° registrado por otro profesor
     OBTENER_PROFESOR_POR_EMAIL(P_EMAIL, V_CURSOR_EMAIL);
     FETCH V_CURSOR_EMAIL INTO V_EXISTING_EMAIL;
     CLOSE V_CURSOR_EMAIL;
 
-    -- Si se encontrÛ otro profesor con el mismo email, lanzar una excepciÛn
+    -- Si se encontr√≥ otro profesor con el mismo email, lanzar una excepci√≥n
     IF V_EXISTING_EMAIL.ID_PROFESOR IS NOT NULL AND V_EXISTING_EMAIL.ID_PROFESOR != P_ID THEN
-        RAISE_APPLICATION_ERROR(-20004, 'El email especificado ya est· registrado por otro profesor.');
+        RAISE_APPLICATION_ERROR(-20004, 'El email especificado ya est√° registrado por otro profesor.');
     END IF;
 
-    -- Actualizar la informaciÛn del profesor si pasa las validaciones
+    -- Actualizar la informaci√≥n del profesor si pasa las validaciones
     UPDATE PROFESORES
     SET
         NOMBRE = P_NOMBRE,
@@ -681,12 +681,12 @@ BEGIN
     WHERE ID_PROFESOR = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n profesor con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n profesor con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar el profesor.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar el profesor.');
 END ELIMINAR_PROFESOR;
 
 
@@ -721,7 +721,7 @@ BEGIN
     
 EXCEPTION
     WHEN name_exists THEN
-        RAISE_APPLICATION_ERROR(-20011, 'El nombre de la materia ya est· registrado en el sistema.');
+        RAISE_APPLICATION_ERROR(-20011, 'El nombre de la materia ya est√° registrado en el sistema.');
     WHEN OTHERS THEN
         IF CURSOR_MATERIAS%ISOPEN THEN
             CLOSE CURSOR_MATERIAS;
@@ -749,7 +749,7 @@ BEGIN
   WHERE ID_MATERIA = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la materia por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la materia por ID.');
 END OBTENER_MATERIA_POR_ID;
 
 
@@ -764,7 +764,7 @@ BEGIN
   WHERE NOMBRE = P_NOMBRE;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la materia por email.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la materia por email.');
 END OBTENER_MATERIA_POR_NOMBRE;
 
 
@@ -778,17 +778,17 @@ CREATE OR REPLACE PROCEDURE ACTUALIZAR_MATERIA (
     V_CURSOR_NOMBRE SYS_REFCURSOR;
     V_EXISTING_NOMBRE MATERIAS%ROWTYPE;
 BEGIN
-    -- Verificar si el nuevo nombre ya est· registrado por otra materia
+    -- Verificar si el nuevo nombre ya est√° registrado por otra materia
     OBTENER_MATERIA_POR_NOMBRE(P_NOMBRE, V_CURSOR_NOMBRE);
     FETCH V_CURSOR_NOMBRE INTO V_EXISTING_NOMBRE;
     CLOSE V_CURSOR_NOMBRE;
 
-    -- Si se encontrÛ otra materia con el mismo nombre, lanzar una excepciÛn
+    -- Si se encontr√≥ otra materia con el mismo nombre, lanzar una excepci√≥n
     IF V_EXISTING_NOMBRE.ID_MATERIA IS NOT NULL AND V_EXISTING_NOMBRE.ID_MATERIA != P_ID THEN
-        RAISE_APPLICATION_ERROR(-20004, 'El nombre especificado ya est· registrado por otra materia.');
+        RAISE_APPLICATION_ERROR(-20004, 'El nombre especificado ya est√° registrado por otra materia.');
     END IF;
 
-    -- Actualizar la informaciÛn de la materia si pasa las validaciones
+    -- Actualizar la informaci√≥n de la materia si pasa las validaciones
     UPDATE MATERIAS
     SET
         NOMBRE = P_NOMBRE,
@@ -807,12 +807,12 @@ BEGIN
     WHERE ID_MATERIA = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna materia con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna materia con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar la materia.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar la materia.');
 END ELIMINAR_MATERIA;
 
 
@@ -852,7 +852,7 @@ BEGIN
   WHERE ID_TIPO_PREGUNTA = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el tipo de pregunta por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el tipo de pregunta por ID.');
 END OBTENER_TIPO_PREGUNTA_POR_ID;
 
 
@@ -880,12 +880,12 @@ BEGIN
     WHERE ID_TIPO_PREGUNTA = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n tipo de pregunta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n tipo de pregunta con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar el tipo de pregunta.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar el tipo de pregunta.');
 END ELIMINAR_TIPO_PREGUNTA;
 
 
@@ -898,21 +898,21 @@ CREATE OR REPLACE PROCEDURE CREAR_TEMA (
     P_ID_MATERIA IN TEMAS.ID_MATERIA%TYPE
 ) IS
 BEGIN
-    -- CreaciÛn del tema
+    -- Creaci√≥n del tema
     INSERT INTO TEMAS (
         ID_TEMA, NOMBRE, ID_MATERIA
     ) VALUES (
         P_ID, P_NOMBRE, P_ID_MATERIA
     );
     
-    -- CreaciÛn del banco de preguntas asociado al tema
+    -- Creaci√≥n del banco de preguntas asociado al tema
     INSERT INTO BANCOS (
         ID_BANCO, NOMBRE, ID_TEMA
     ) VALUES (
         P_ID, P_NOMBRE, P_ID
     );
     
-    -- AsociaciÛn del tema con su nuevo banco de preguntas
+    -- Asociaci√≥n del tema con su nuevo banco de preguntas
     UPDATE TEMAS
     SET ID_BANCO = P_ID
     WHERE ID_TEMA = P_ID;
@@ -944,7 +944,7 @@ BEGIN
   WHERE T.ID_TEMA = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el profesor por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el profesor por ID.');
 END OBTENER_TEMA_POR_ID;
 
 
@@ -977,7 +977,7 @@ BEGIN
     WHERE ID_TEMA = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n tema con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n tema con el ID especificado.');
     END IF;
     
     -- Eliminar banco asociado
@@ -985,12 +985,12 @@ BEGIN
     WHERE ID_BANCO = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n banco con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n banco con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar el tema.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar el tema.');
 END ELIMINAR_TEMA;
 
 
@@ -1035,7 +1035,7 @@ BEGIN
     );
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al crear la pregunta.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al crear la pregunta.');
 END CREAR_PREGUNTA;
 
 
@@ -1091,7 +1091,7 @@ BEGIN
     P.ID_PREGUNTA = P_ID_PREGUNTA;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la pregunta por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la pregunta por ID.');
 END OBTENER_PREGUNTA_POR_ID;
 
 
@@ -1121,7 +1121,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_PREGUNTA.ID_PREGUNTA IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna pregunta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna pregunta con el ID especificado.');
     END IF;
 
     -- Verificar si la privacidad existe
@@ -1130,7 +1130,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_PRIVACIDAD.ID_PRIVACIDAD IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20005, 'No se encontrÛ ninguna privacidad con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20005, 'No se encontr√≥ ninguna privacidad con el ID especificado.');
     END IF;
 
     -- Verificar si el tipo de pregunta existe
@@ -1139,7 +1139,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_TIPO_PREGUNTA.ID_TIPO_PREGUNTA IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20006, 'No se encontrÛ ning˙n tipo de pregunta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20006, 'No se encontr√≥ ning√∫n tipo de pregunta con el ID especificado.');
     END IF;
 
     -- Verificar si el profesor existe
@@ -1148,7 +1148,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_PROFESOR.ID_PROFESOR IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20007, 'No se encontrÛ ning˙n profesor con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20007, 'No se encontr√≥ ning√∫n profesor con el ID especificado.');
     END IF;
 
     -- Verificar si el banco de preguntas existe
@@ -1157,10 +1157,10 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_BANCO.ID_BANCO IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20008, 'No se encontrÛ ning˙n banco de preguntas con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20008, 'No se encontr√≥ ning√∫n banco de preguntas con el ID especificado.');
     END IF;
 
-    -- Actualizar la informaciÛn de la pregunta si pasa las validaciones
+    -- Actualizar la informaci√≥n de la pregunta si pasa las validaciones
     UPDATE PREGUNTAS
     SET
         TEXTO_PREGUNTA = P_TEXTO_PREGUNTA,
@@ -1176,7 +1176,7 @@ BEGIN
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al actualizar la informaciÛn de la pregunta.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al actualizar la informaci√≥n de la pregunta.');
 END ACTUALIZAR_PREGUNTA;
 
 
@@ -1191,7 +1191,7 @@ BEGIN
   WHERE ID_PRIVACIDAD = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el tipo de privacidad  por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el tipo de privacidad  por ID.');
 END OBTENER_PRIVACIDAD_POR_ID;
 
 
@@ -1206,7 +1206,7 @@ BEGIN
   WHERE ID_BANCO = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener el banco  por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener el banco  por ID.');
 END OBTENER_BANCO_POR_ID;
 
 
@@ -1223,21 +1223,21 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_PREGUNTA.ID_PREGUNTA IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna pregunta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna pregunta con el ID especificado.');
     END IF;
 
     -- Eliminar la pregunta
     DELETE FROM PREGUNTAS 
     WHERE ID_PREGUNTA = P_ID;
     
-    -- Verificar si la eliminaciÛn fue exitosa
+    -- Verificar si la eliminaci√≥n fue exitosa
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna pregunta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna pregunta con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar la pregunta.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar la pregunta.');
 END ELIMINAR_PREGUNTA;
 
 
@@ -1259,7 +1259,7 @@ BEGIN
     
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20001, 'OcurriÛ un error al crear la unidad.');
+        RAISE_APPLICATION_ERROR(-20001, 'Ocurri√≥ un error al crear la unidad.');
 END CREAR_UNIDAD;
 
 
@@ -1282,7 +1282,7 @@ BEGIN
   WHERE ID_UNIDAD = P_ID_UNIDAD;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la unidad por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la unidad por ID.');
 END OBTENER_UNIDAD_POR_ID;
 
 
@@ -1292,7 +1292,7 @@ CREATE OR REPLACE PROCEDURE ACTUALIZAR_UNIDAD (
     P_NOMBRE IN UNIDADES.NOMBRE%TYPE
 ) IS
 BEGIN
-    -- Actualizar la informaciÛn de la unidad
+    -- Actualizar la informaci√≥n de la unidad
     UPDATE UNIDADES
     SET
         NOMBRE = P_NOMBRE
@@ -1300,7 +1300,7 @@ BEGIN
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al actualizar la informaciÛn de la unidad.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al actualizar la informaci√≥n de la unidad.');
 END ACTUALIZAR_UNIDAD;
 
 
@@ -1313,14 +1313,14 @@ BEGIN
     DELETE FROM UNIDADES 
     WHERE ID_UNIDAD = P_ID_UNIDAD;
     
-    -- Verificar si la eliminaciÛn fue exitosa
+    -- Verificar si la eliminaci√≥n fue exitosa
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna unidad con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna unidad con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar la unidad.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar la unidad.');
 END ELIMINAR_UNIDAD;
 
 
@@ -1342,7 +1342,7 @@ BEGIN
     );
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20001, 'OcurriÛ un error al crear el grupo.');
+        RAISE_APPLICATION_ERROR(-20001, 'Ocurri√≥ un error al crear el grupo.');
 END CREAR_GRUPO;
 
 
@@ -1365,7 +1365,7 @@ BEGIN
     WHERE ID_GRUPO = P_ID_GRUPO;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20002, 'OcurriÛ un error al obtener el grupo por ID.');
+        RAISE_APPLICATION_ERROR(-20002, 'Ocurri√≥ un error al obtener el grupo por ID.');
 END OBTENER_GRUPO_POR_ID;
 
 
@@ -1387,11 +1387,11 @@ BEGIN
     WHERE ID_GRUPO = P_ID_GRUPO;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20003, 'No se encontrÛ ning˙n grupo con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20003, 'No se encontr√≥ ning√∫n grupo con el ID especificado.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20004, 'OcurriÛ un error al actualizar el grupo.');
+        RAISE_APPLICATION_ERROR(-20004, 'Ocurri√≥ un error al actualizar el grupo.');
 END ACTUALIZAR_GRUPO;
 
 
@@ -1404,11 +1404,11 @@ BEGIN
     WHERE ID_GRUPO = P_ID_GRUPO;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20005, 'No se encontrÛ ning˙n grupo con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20005, 'No se encontr√≥ ning√∫n grupo con el ID especificado.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20006, 'OcurriÛ un error al eliminar el grupo.');
+        RAISE_APPLICATION_ERROR(-20006, 'Ocurri√≥ un error al eliminar el grupo.');
 END ELIMINAR_GRUPO;
 
 
@@ -1490,7 +1490,7 @@ BEGIN
     VALUES (P_ID_GRUPO, P_ID);
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al crear el examen.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al crear el examen.');
 END CREAR_EXAMEN;
 
 
@@ -1547,7 +1547,7 @@ BEGIN
     WHERE E.ID_EXAMEN = P_ID_EXAMEN;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la pregunta por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la pregunta por ID.');
 END OBTENER_EXAMEN_POR_ID;
 
 
@@ -1579,7 +1579,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_EXAMEN.ID_EXAMEN IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n examen con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n examen con el ID especificado.');
     END IF;
 
     -- Verificar si el tema existe
@@ -1588,7 +1588,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_TEMA.ID_TEMA IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20009, 'No se encontrÛ ning˙n tema con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20009, 'No se encontr√≥ ning√∫n tema con el ID especificado.');
     END IF;
 
     -- Verificar si el profesor existe
@@ -1597,7 +1597,7 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_PROFESOR.ID_PROFESOR IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20007, 'No se encontrÛ ning˙n profesor con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20007, 'No se encontr√≥ ning√∫n profesor con el ID especificado.');
     END IF;
 
     -- Verificar si la unidad existe
@@ -1606,10 +1606,10 @@ BEGIN
     CLOSE V_CURSOR;
 
     IF V_EXISTING_UNIDAD.ID_UNIDAD IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20010, 'No se encontrÛ ninguna unidad con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20010, 'No se encontr√≥ ninguna unidad con el ID especificado.');
     END IF;
 
-    -- Actualizar la informaciÛn del examen si pasa las validaciones
+    -- Actualizar la informaci√≥n del examen si pasa las validaciones
     UPDATE EXAMENES
     SET
         NOMBRE = P_NOMBRE,
@@ -1628,7 +1628,7 @@ BEGIN
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al actualizar la informaciÛn del examen.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al actualizar la informaci√≥n del examen.');
 END ACTUALIZAR_EXAMEN;
 
 
@@ -1641,12 +1641,12 @@ BEGIN
     WHERE ID_EXAMEN = P_ID_EXAMEN;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ning˙n examen con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ning√∫n examen con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar el examen.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar el examen.');
 END ELIMINAR_EXAMEN;
 
 
@@ -1688,7 +1688,7 @@ BEGIN
   WHERE ID_OPCION_RESPUESTA = P_ID;
 EXCEPTION
   WHEN OTHERS THEN
-    RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al obtener la opciÛn de respuesta por ID.');
+    RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al obtener la opci√≥n de respuesta por ID.');
 END OBTENER_OPCION_POR_ID;
 
 
@@ -1718,12 +1718,12 @@ BEGIN
     WHERE ID_OPCION_RESPUESTA = P_ID;
     
     IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se encontrÛ ninguna opciÛn de respuesta con el ID especificado.');
+        RAISE_APPLICATION_ERROR(-20002, 'No se encontr√≥ ninguna opci√≥n de respuesta con el ID especificado.');
     END IF;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'OcurriÛ un error al eliminar la opciÛn de respuesta.');
+        RAISE_APPLICATION_ERROR(-20003, 'Ocurri√≥ un error al eliminar la opci√≥n de respuesta.');
 END ELIMINAR_OPCION_RESPUESTA;
 
 
@@ -1742,11 +1742,11 @@ BEGIN
     WHERE EMAIL = P_EMAIL AND CONTRASENA = P_CONTRASENA;
     
     IF NOT P_CURSOR%FOUND THEN
-        RAISE_APPLICATION_ERROR(-20021, 'Correo electrÛnico o contraseÒa incorrectos.');
+        RAISE_APPLICATION_ERROR(-20021, 'Correo electr√≥nico o contrase√±a incorrectos.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20022, 'OcurriÛ un error durante el inicio de sesiÛn.');
+        RAISE_APPLICATION_ERROR(-20022, 'Ocurri√≥ un error durante el inicio de sesi√≥n.');
 END INICIAR_SESION_ESTUDIANTE;
 
 
@@ -1763,11 +1763,11 @@ BEGIN
     WHERE EMAIL = P_EMAIL AND CONTRASENA = P_CONTRASENA;
     
     IF NOT P_CURSOR%FOUND THEN
-        RAISE_APPLICATION_ERROR(-20021, 'Correo electrÛnico o contraseÒa incorrectos.');
+        RAISE_APPLICATION_ERROR(-20021, 'Correo electr√≥nico o contrase√±a incorrectos.');
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20022, 'OcurriÛ un error durante el inicio de sesiÛn.');
+        RAISE_APPLICATION_ERROR(-20022, 'Ocurri√≥ un error durante el inicio de sesi√≥n.');
 END INICIAR_SESION_PROFESOR;
 
 
@@ -1799,7 +1799,7 @@ BEGIN
     WHERE P.ID_BANCO = P_ID_BANCO;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20031, 'OcurriÛ un error al obtener las preguntas asociadas al banco.');
+        RAISE_APPLICATION_ERROR(-20031, 'Ocurri√≥ un error al obtener las preguntas asociadas al banco.');
 END OBTENER_PREGUNTAS_BANCO;
 
 
@@ -1823,7 +1823,7 @@ BEGIN
     WHERE G.ID_GRUPO = P_ID_GRUPO;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20031, 'OcurriÛ un error al obtener los estudiantes asociados al grupo.');
+        RAISE_APPLICATION_ERROR(-20031, 'Ocurri√≥ un error al obtener los estudiantes asociados al grupo.');
 END OBTENER_ESTUDIANTES_GRUPO;
 
 
@@ -1844,7 +1844,7 @@ BEGIN
     WHERE G.ID_PROFESOR = P_ID_PROFESOR;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20031, 'OcurriÛ un error al obtener los grupos asociados al profesor.');
+        RAISE_APPLICATION_ERROR(-20031, 'Ocurri√≥ un error al obtener los grupos asociados al profesor.');
 END OBTENER_GRUPOS_PROFESOR;
 
 
@@ -1864,6 +1864,5 @@ BEGIN
     WHERE G.ID_GRUPO = P_ID_GRUPO;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20001, 'OcurriÛ un error al obtener las unidades asociadas al grupo.');
+        RAISE_APPLICATION_ERROR(-20001, 'Ocurri√≥ un error al obtener las unidades asociadas al grupo.');
 END OBTENER_UNIDADES_GRUPO;
-
