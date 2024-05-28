@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="quizmaster" id="F2266446-C211-FD80-B59B-3280E2CC91D6" version="3.5">
+<createdBy>Samue</createdBy>
+<createdTime>2024-04-19 03:41:17 UTC</createdTime>
+<ownerDesignName>quizmaster</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>F2266446-C211-FD80-B59B-3280E2CC91D6</designId>
+</OSDM_Design>
